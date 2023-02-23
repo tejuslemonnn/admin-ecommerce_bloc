@@ -25,11 +25,16 @@ class ProductScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderButton(
-                onPressed: () {
-                  Get.to(() => NewProductScreen());
-                },
-                height: 80.h,
-                text: "Add a New Product"),
+              onPressed: () {
+                Get.to(() => NewProductScreen());
+              },
+              height: 80.h,
+              text: "Add a New Product",
+              icon: const Icon(
+                CupertinoIcons.add_circled_solid,
+                color: Colors.white,
+              ),
+            ),
             Expanded(
               child: Obx(() {
                 return ListView.builder(

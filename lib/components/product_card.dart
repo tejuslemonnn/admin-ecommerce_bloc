@@ -104,14 +104,14 @@ class ProductCart extends StatelessWidget {
                               value: product.quantity.toDouble(),
                               min: 0,
                               max: 100,
-                              divisions: 10,
+                              divisions: 100,
                               activeColor: Colors.black,
                               inactiveColor: Colors.black12,
                               onChanged: (value) {
                                 productController.updateProductQuantity(
                                   index,
                                   product,
-                                  value.toInt(),
+                                  value,
                                 );
                               },
                               onChangeEnd: (value) {

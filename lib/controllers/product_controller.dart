@@ -39,7 +39,7 @@ class ProductController extends GetxController {
   void updateProductQuantity(
     int index,
     Product product,
-    int value,
+    double value,
   ) {
     product.quantity = value;
     products[index] = product;

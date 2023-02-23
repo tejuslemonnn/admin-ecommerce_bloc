@@ -5,12 +5,16 @@ class HeaderButton extends StatelessWidget {
   const HeaderButton({
     Key? key,
     required this.onPressed,
-    required this.height,
+    this.height,
     required this.text,
+    this.width,
+    this.icon,
   }) : super(key: key);
 
   final VoidCallback onPressed;
-  final double height;
+  final Icon? icon;
+  final double? height;
+  final double? width;
   final String text;
 
   @override
@@ -19,24 +23,24 @@ class HeaderButton extends StatelessWidget {
       onTap: onPressed,
       child: SizedBox(
         height: height,
+        width: width,
         child: Card(
           margin: EdgeInsets.zero,
           color: Colors.black,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  CupertinoIcons.add_circled_solid,
-                  color: Colors.white,
-                ),
+                icon ?? const SizedBox.shrink(),
                 const SizedBox(width: 10),
                 Text(
                   text,
                   style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 )
               ],
             ),

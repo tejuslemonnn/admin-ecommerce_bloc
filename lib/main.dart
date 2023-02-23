@@ -22,8 +22,9 @@ class MyApp extends StatelessWidget {
       title: 'Admin Ecommerce BLOC',
       getPages: [
         GetPage(name: '/products', page: () =>  ProductScreen()),
+        GetPage(name: '/orders', page: () =>   OrderScreen()),
       ],
-      home: const HomeSreen(),
+      home:  HomeSreen(),
       builder: (context, child) {
         ScreenUtil.init(context);
         return child!;

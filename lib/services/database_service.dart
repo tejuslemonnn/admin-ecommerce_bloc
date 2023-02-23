@@ -13,6 +13,38 @@ class DatabaseService {
     });
   }
 
+  Future<List<OrderStats>> getOrderStats() {
+    return _firebaseFirestore
+        .collection('order_stats')
+        .orderBy('datetime')
+        .get()
+        .then(
+          (value) => value.docs
+              .asMap()
+              .entries
+              .map((e) => OrderStats.fromSnapShot(e.value, e.key))
+              .toList(),
+        );
+  }
+
+  Stream<List<OrderModel>> gerOrders() {
+    return _firebaseFirestore.collection('orders').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => OrderModel.fromSnapshot(doc)).toList();
+    });
+  }
+
+  Stream<List<OrderModel>> getPendingOrders() {
+    return _firebaseFirestore
+        .collection('orders')
+        .where('isAccepted', isEqualTo: false)
+        .where('isCancelled', isEqualTo: false)
+        .where('isDelivered', isEqualTo: false)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) => OrderModel.fromSnapshot(doc)).toList();
+    });
+  }
+
   Future<void> addProduct(Product product) {
     return _firebaseFirestore.collection('products').add(product.toMap());
   }
@@ -29,5 +61,13 @@ class DatabaseService {
         .then((querySnapshot) => {
               querySnapshot.docs.first.reference.update({field: newValue})
             });
+  }
+
+  Future<void> updateOrder(OrderModel order, String field, dynamic newValue) {
+    return _firebaseFirestore
+        .collection("orders")
+        .where('id', isEqualTo: order.id)
+        .get()
+        .then((value) => value.docs.first.reference.update({field: newValue}));
   }
 }
